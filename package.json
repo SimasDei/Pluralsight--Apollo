@@ -1,0 +1,11 @@
+{
+  "name": "Pluralsight--Apollo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SimasDei/Pluralsight--Apollo.git",
+  "author": "Simas <simonas.deimantavicius@teliacompany.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
