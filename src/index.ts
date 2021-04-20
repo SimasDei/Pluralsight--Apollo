@@ -4,19 +4,26 @@ import { exit } from 'process';
 
 const init = async () => {
   const typeDefs = gql`
+    type Session {
+      id: ID!
+      title: String!
+      description: String
+      startsAt: String
+      endsAt: String
+      room: String
+      day: String
+      format: String
+      track: String
+      level: String
+    }
+
     type Query {
-      hello: String
+      sessions: [Session]
     }
   `;
 
-  const resolvers = {
-    Query: {
-      hello: () => 'Hello world!',
-    },
-  };
-
   try {
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({ typeDefs });
     await server.start();
 
     const app = express();
