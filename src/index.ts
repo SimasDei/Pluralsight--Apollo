@@ -2,16 +2,17 @@ import * as express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
 import { exit } from 'process';
 
-import SessionsAPI from './datasources/sessions';
-import { sessionsSchema } from './schema';
-import { sessionResolver } from './resolvers';
+import { SpeakersAPI, SessionsAPI } from './datasources';
+import { sessionsSchema, speakersSchema } from './schema';
+import { sessionResolver, speakerResolver } from './resolvers';
 
 const init = async () => {
-  const typeDefs = [sessionsSchema];
-  const resolvers = [sessionResolver];
+  const typeDefs = [sessionsSchema, speakersSchema];
+  const resolvers = [sessionResolver, speakerResolver];
 
   const dataSources = () => ({
     sessionAPI: new SessionsAPI(),
+    speakerAPI: new SpeakersAPI(),
   });
 
   try {

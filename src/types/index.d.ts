@@ -10,3 +10,10 @@ export interface Session {
   track?: string;
   level?: string;
 }
+
+export interface Speaker {
+  id: string;
+  bio: string;
+  sessions: Array<Session>;
+  name: string;
+}
