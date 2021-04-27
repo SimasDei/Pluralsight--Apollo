@@ -3,50 +3,12 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import { exit } from 'process';
 
 import SessionsAPI from './datasources/sessions';
+import { sessionsSchema } from './schema';
+import { sessionResolver } from './resolvers';
 
 const init = async () => {
-  const typeDefs = gql`
-    type Session {
-      id: ID!
-      title: String!
-      description: String
-      startsAt: String
-      endsAt: String
-      room: String
-      day: String
-      format: String
-      track: String
-        @deprecated(reason: "Too many sessions do not fit into a single track, will be revised in the future")
-      level: String
-    }
-
-    type Query {
-      sessions(
-        id: ID
-        title: String
-        description: String
-        startsAt: String
-        endsAt: String
-        room: String
-        day: String
-        format: String
-        track: String
-        level: String
-      ): [Session]
-      sessionById(id: ID): Session
-    }
-  `;
-
-  const resolvers = {
-    Query: {
-      sessions: (parent, args, { dataSources }, info) => {
-        return dataSources.sessionAPI.getSessions(args);
-      },
-      sessionById: (parent, { id }, { dataSources }) => {
-        return dataSources.sessionAPI.getSessionById(id);
-      },
-    },
-  };
+  const typeDefs = [sessionsSchema];
+  const resolvers = [sessionResolver];
 
   const dataSources = () => ({
     sessionAPI: new SessionsAPI(),
