@@ -27,7 +27,7 @@ const init = async () => {
 
   const resolvers = {
     Query: {
-      sessions: (_, _2, { dataSources }) => {
+      sessions: (parent, args, { dataSources }, info) => {
         return dataSources.sessionAPI.getSessions();
       },
     },
